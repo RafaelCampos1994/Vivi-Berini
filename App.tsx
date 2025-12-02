@@ -1,14 +1,15 @@
 import React from 'react';
-import { LEAD_DATA, REMARKETING_DATA } from './constants';
+import { LEAD_DATA, REMARKETING_DATA, LEAD_ADS_DATA, REMARKETING_ADS_DATA } from './constants';
 import { DashboardCard } from './components/DashboardCard';
 import { StatCard } from './components/StatCard';
+import { AdPerformanceTable } from './components/AdPerformanceTable';
 import { 
   LeadsVolumeChart, 
   CplChart, 
   ViewsChart, 
   CostChart 
 } from './components/Charts';
-import { Activity, Users, Target, CreditCard, DollarSign, Eye, TrendingUp } from 'lucide-react';
+import { Activity, Users, Target, CreditCard, DollarSign, Eye, TrendingUp, List } from 'lucide-react';
 
 const App: React.FC = () => {
   // Helper for currency formatting
@@ -40,7 +41,7 @@ const App: React.FC = () => {
         </p>
       </header>
 
-      <main className="max-w-7xl mx-auto space-y-12">
+      <main className="max-w-7xl mx-auto space-y-16">
         
         {/* SECTION 1: CAPTAÇÃO */}
         <section>
@@ -72,13 +73,26 @@ const App: React.FC = () => {
           </div>
 
           {/* Charts Row */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <DashboardCard title="Volume de Leads por Público">
               <LeadsVolumeChart data={LEAD_DATA} />
             </DashboardCard>
             <DashboardCard title="Eficiência: Custo por Lead (Por Segmento)">
               <CplChart data={LEAD_DATA} />
             </DashboardCard>
+          </div>
+
+          {/* Detailed Ads Table */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-2 text-gray-700">
+              <List size={20} />
+              <h3 className="text-xl font-bold">Detalhamento de Anúncios (Captação)</h3>
+            </div>
+            <AdPerformanceTable 
+              data={LEAD_ADS_DATA} 
+              type="capture" 
+              metricLabel="Leads (Resultados)"
+            />
           </div>
         </section>
 
@@ -112,13 +126,26 @@ const App: React.FC = () => {
           </div>
 
           {/* Charts Row */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <DashboardCard title="Visitas na Página de Vendas">
               <ViewsChart data={REMARKETING_DATA} />
             </DashboardCard>
             <DashboardCard title="Eficiência: Custo por Visita (Por Segmento)">
               <CostChart data={REMARKETING_DATA} />
             </DashboardCard>
+          </div>
+
+           {/* Detailed Ads Table */}
+           <div className="space-y-4">
+            <div className="flex items-center gap-2 text-gray-700">
+              <List size={20} />
+              <h3 className="text-xl font-bold">Detalhamento de Anúncios (Remarketing)</h3>
+            </div>
+            <AdPerformanceTable 
+              data={REMARKETING_ADS_DATA} 
+              type="remarketing" 
+              metricLabel="Visitas (Resultados)"
+            />
           </div>
         </section>
 
